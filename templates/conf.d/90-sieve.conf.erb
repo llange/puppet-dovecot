@@ -18,6 +18,9 @@ plugin {
   # --> See sieve_before fore executing scripts before the user's personal
   #     script.
   #sieve_default = /var/lib/dovecot/sieve/default.sieve
+  <%- if @sieve_default %>
+  sieve_default = <%= @sieve_default %>
+  <% end -%>
 
   # Directory for :personal include scripts for the include extension. This
   # is also where the ManageSieve service stores the user's scripts.
@@ -25,6 +28,9 @@ plugin {
 
   # Directory for :global include scripts for the include extension. 
   #sieve_global_dir =
+  <%- if @sieve_global_dir  %>
+  sieve_global_dir  = <%= @sieve_global_dir  %>
+  <% end -%>
 
   # Path to a script file or a directory containing script files that need to be
   # executed before the user's script. If the path points to a directory, all

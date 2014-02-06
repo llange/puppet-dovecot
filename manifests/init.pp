@@ -46,7 +46,9 @@ class dovecot (
     $lda_mail_plugins           = undef,
     # 90-sieve.conf
     $sieve                      = '~/.dovecot.sieve',
+    $sieve_default              = undef,
     $sieve_dir                  = '~/sieve',
+    $sieve_global_dir           = undef,
     # auth-sql.conf.ext
     $auth_sql_userdb_static     = undef,
     $auth_master_separator      = '*',
@@ -57,13 +59,13 @@ class dovecot (
 ) {
 
     case $::operatingsystem {
-    'RedHat', 'CentOS': { 
+    'RedHat', 'CentOS': {
         $packages = 'dovecot'
-    } 
+    }
     /^(Debian|Ubuntu)$/:{
         $packages = ['dovecot-common','dovecot-imapd', 'dovecot-pop3d', 'dovecot-mysql', 'dovecot-lmtpd']
     }
-    default: { fail("OS $::operatingsystem and version $::operatingsystemrelease is not supported") }
+    default: { fail("OS ${::operatingsystem} and version ${::operatingsystemrelease} is not supported") }
 }
 
     # All files in this scope are dovecot configuration files
@@ -78,8 +80,8 @@ class dovecot (
     # Main package and service it provides
     package { $packages: ensure => installed }
     service { 'dovecot':
-        enable    => true,
         ensure    => running,
+        enable    => true,
         hasstatus => true,
         require   => File['/etc/dovecot/dovecot.conf'],
     }
