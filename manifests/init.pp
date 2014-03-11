@@ -17,6 +17,7 @@ class dovecot (
     # 10-auth.conf
     $disable_plaintext_auth     = undef,
     $auth_username_chars        = undef,
+    $auth_master_separator      = '*',
     $auth_mechanisms            = 'plain',
     $auth_include               = [ 'system' ],
     # 10-logging.conf
@@ -52,11 +53,12 @@ class dovecot (
     $sieve_extensions           = undef,
     # auth-sql.conf.ext
     $auth_sql_userdb_static     = undef,
-    $auth_master_separator      = '*',
     $mail_max_userip_connections = 512,
     $first_valid_uid             = false,
-    $last_valid_uid              = false
-
+    $last_valid_uid              = false,
+    # auth-master.conf.ext / master-users
+    $auth_master_pass            = false,
+    $master_users                = '',
 ) {
 
     case $::operatingsystem {
@@ -116,6 +118,16 @@ class dovecot (
     }
     file { '/etc/dovecot/conf.d/auth-sql.conf.ext':
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
+    }
+    file { '/etc/dovecot/conf.d/auth-master.conf.ext':
+        content => template('dovecot/conf.d/auth-master.conf.ext.erb'),
+    }
+
+    # file with master users
+    dovecot::file {'master-users':
+      group   => dovecot,
+      mode    => '0640',
+      content => $master_users,
     }
 
 }
