@@ -28,6 +28,11 @@ class dovecot (
     $mail_debug                 = undef,
     # 10-mail.conf
     $mail_location              = undef,
+    $mmap_disable               = undef,
+    $dotlock_use_excl           = undef,
+    $mail_fsync                 = undef,
+    $mail_nfs_storage           = undef,
+    $mail_nfs_index             = undef,
     # 10-master.conf
     $default_process_limit      = undef,
     $default_client_limit       = undef,
