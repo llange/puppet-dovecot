@@ -6,9 +6,8 @@
 #    Array of plugin sub-packages to install. Default: empty
 #
 class dovecot (
-    # Backports and Version Debian only!
+    # Backports Debian only!
     $backports                  = false,
-    $version                    = 'latest',
 
     $plugins                    = [],
     # dovecot.conf
@@ -106,17 +105,6 @@ class dovecot (
         -> Package<| tag == 'dovecot-packages' |>
       }
 
-      # then we might also pin the version
-      if $version =~ /^(latest|installed)$/ {
-        apt::pin { 'pin_dovecot_version': ensure => absent }
-      } else {
-        apt::pin { 'pin_dovecot_version':
-          packages => 'dovecot-*',
-          version  => $version,
-          priority => '1001',
-        }
-      }
-
     }
 
     # Install plugins (sub-packages)
@@ -124,7 +112,7 @@ class dovecot (
 
     # Main package and service it provides
     package { $packages:
-        ensure => $version,
+        ensure => installed,
         tag    => 'dovecot-packages',
     }
     service { 'dovecot':
