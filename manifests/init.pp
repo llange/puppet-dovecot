@@ -7,66 +7,68 @@
 #
 class dovecot (
     # Backports Debian only!
-    $backports                  = false,
+    $backports                     = false,
 
-    $plugins                    = [],
+    $plugins                       = [],
     # dovecot.conf
-    $protocols                  = undef,
-    $listen                     = undef,
-    $login_greeting             = undef,
-    $login_trusted_networks     = undef,
-    $verbose_proctitle          = undef,
-    $shutdown_clients           = undef,
+    $protocols                     = undef,
+    $listen                        = undef,
+    $login_greeting                = undef,
+    $login_trusted_networks        = undef,
+    $verbose_proctitle             = undef,
+    $shutdown_clients              = undef,
     # 10-auth.conf
-    $disable_plaintext_auth     = undef,
-    $auth_username_chars        = undef,
-    $auth_master_separator      = '*',
-    $auth_mechanisms            = 'plain',
-    $auth_include               = [ 'system' ],
+    $disable_plaintext_auth        = undef,
+    $auth_username_chars           = undef,
+    $auth_master_separator         = '*',
+    $auth_mechanisms               = 'plain',
+    $auth_include                  = [ 'system' ],
     # 10-logging.conf
-    $log_path                   = undef,
-    $log_timestamp              = undef,
-    $auth_verbose               = undef,
-    $auth_debug                 = undef,
-    $mail_debug                 = undef,
+    $log_path                      = undef,
+    $log_timestamp                 = undef,
+    $auth_verbose                  = undef,
+    $auth_debug                    = undef,
+    $mail_debug                    = undef,
     # 10-mail.conf
-    $mail_location              = undef,
-    $mmap_disable               = undef,
-    $dotlock_use_excl           = undef,
-    $mail_fsync                 = undef,
-    $mail_nfs_storage           = undef,
-    $mail_nfs_index             = undef,
+    $mail_location                 = undef,
+    $mmap_disable                  = undef,
+    $dotlock_use_excl              = undef,
+    $mail_fsync                    = undef,
+    $mail_nfs_storage              = undef,
+    $mail_nfs_index                = undef,
     # 10-master.conf
-    $default_process_limit      = undef,
-    $default_client_limit       = undef,
-    $auth_listener_userdb_mode  = undef,
-    $auth_listener_userdb_user  = undef,
-    $auth_listener_userdb_group = undef,
-    $auth_listener_postfix      = false,
-    $lmtp_socket_path           = undef,
+    $default_process_limit         = undef,
+    $default_client_limit          = undef,
+    $auth_listener_userdb_mode     = undef,
+    $auth_listener_userdb_user     = undef,
+    $auth_listener_userdb_group    = undef,
+    $auth_listener_postfix         = false,
+    $lmtp_socket_path              = undef,
     # 10-ssl.conf
-    $ssl                        = undef,
-    $ssl_cert                   = '/etc/pki/dovecot/certs/dovecot.pem',
-    $ssl_key                    = '/etc/pki/dovecot/private/dovecot.pem',
-    $ssl_cipher_list            = undef,
+    $ssl                           = undef,
+    $ssl_cert                      = '/etc/pki/dovecot/certs/dovecot.pem',
+    $ssl_key                       = '/etc/pki/dovecot/private/dovecot.pem',
+    $ssl_cipher_list               = undef,
     # 15-lda.conf
-    $postmaster_address         = undef,
-    $hostname                   = undef,
-    $lda_mail_plugins           = undef,
+    $postmaster_address            = undef,
+    $hostname                      = undef,
+    $lda_mail_plugins              = undef,
     # 90-sieve.conf
-    $sieve                      = '~/.dovecot.sieve',
-    $sieve_default              = undef,
-    $sieve_dir                  = '~/sieve',
-    $sieve_global_dir           = undef,
-    $sieve_extensions           = undef,
+    $sieve                         = '~/.dovecot.sieve',
+    $sieve_default                 = undef,
+    $sieve_dir                     = '~/sieve',
+    $sieve_global_dir              = undef,
+    $sieve_extensions              = undef,
     # auth-sql.conf.ext
-    $auth_sql_userdb_static     = undef,
-    $mail_max_userip_connections = 512,
-    $first_valid_uid             = false,
-    $last_valid_uid              = false,
+    $auth_sql_userdb_static        = undef,
+    $mail_max_userip_connections   = 512,
+    $first_valid_uid               = false,
+    $last_valid_uid                = false,
+    # auth-system.conf.ext
+    $userdb_passwd_override_fields = undef,
     # auth-master.conf.ext / master-users
-    $auth_master_pass            = false,
-    $master_users                = '',
+    $auth_master_pass              = false,
+    $master_users                  = '',
 ) {
 
     case $::operatingsystem {
@@ -151,6 +153,9 @@ class dovecot (
     }
     file { '/etc/dovecot/conf.d/auth-sql.conf.ext':
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
+    }
+    file { '/etc/dovecot/conf.d/auth-system.conf.ext':
+        content => template('dovecot/conf.d/auth-system.conf.ext.erb'),
     }
     file { '/etc/dovecot/conf.d/auth-master.conf.ext':
         content => template('dovecot/conf.d/auth-master.conf.ext.erb'),

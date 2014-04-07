@@ -56,6 +56,9 @@ userdb {
 
   # Override fields from passwd
   #override_fields = home=/home/virtual/%u
+<% if @userdb_passwd_override_field -%>
+  override_fields = <%= @userdb_passwd_override_field %>
+<% end -%>
 }
 
 # Static settings generated from template <doc/wiki/UserDatabase.Static.txt>
