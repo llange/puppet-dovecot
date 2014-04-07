@@ -6,6 +6,10 @@
 #    Array of plugin sub-packages to install. Default: empty
 #
 class dovecot (
+    # Backports and Version Debian only!
+    $backports                  = false,
+    $version                    = 'latest',
+
     $plugins                    = [],
     # dovecot.conf
     $protocols                  = undef,
@@ -67,14 +71,16 @@ class dovecot (
 ) {
 
     case $::operatingsystem {
-    'RedHat', 'CentOS': {
+      'RedHat', 'CentOS': {
         $packages = 'dovecot'
-    }
-    /^(Debian|Ubuntu)$/:{
+      }
+      /^(Debian|Ubuntu)$/:{
         $packages = ['dovecot-common','dovecot-imapd', 'dovecot-pop3d', 'dovecot-mysql', 'dovecot-lmtpd']
+      }
+      default: {
+        fail("OS ${::operatingsystem} and version ${::operatingsystemrelease} is not supported")
+      }
     }
-    default: { fail("OS ${::operatingsystem} and version ${::operatingsystemrelease} is not supported") }
-}
 
     # All files in this scope are dovecot configuration files
     File {
@@ -82,11 +88,45 @@ class dovecot (
         require => Package[$packages],
     }
 
+    # DEBIAN only!
+    if $::osfamily == 'Debian' {
+
+      #If we want to have dovecot from Debian Backpots:
+      if $dovecot::backports {
+        include apt::backports
+
+        $release = downcase($::lsbdistcodename)
+        apt::pin { 'pin_dovecot_release':
+          packages => 'dovecot',
+          release  => "${release}-backports",
+          priority => '995',
+        }
+
+        Class['apt::backports']
+        -> Package<| tag == 'dovecot-packages' |>
+      }
+
+      # then we might also pin the version
+      if $version =~ /^(latest|installed)%/ {
+        apt::pin { 'pin_dovecot_version': ensure => absent }
+      } else {
+        apt::pin { 'pin_dovecot_version':
+          packages => 'dovecot-*',
+          version  => $version,
+          priority => '1001',
+        }
+      }
+
+    }
+
     # Install plugins (sub-packages)
     dovecot::plugin { $plugins: before => Package[$packages] }
 
     # Main package and service it provides
-    package { $packages: ensure => installed }
+    package { $packages:
+        ensure => $version,
+        tag    => 'dovecot-packages',
+    }
     service { 'dovecot':
         ensure    => running,
         enable    => true,
