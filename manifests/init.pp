@@ -20,6 +20,7 @@ class dovecot (
     # 10-auth.conf
     $disable_plaintext_auth        = undef,
     $auth_username_chars           = undef,
+    $auth_username_format          = undef,
     $auth_master_separator         = '*',
     $auth_mechanisms               = 'plain',
     $auth_include                  = [ 'system' ],
