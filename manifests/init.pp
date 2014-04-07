@@ -107,7 +107,7 @@ class dovecot (
       }
 
       # then we might also pin the version
-      if $version =~ /^(latest|installed)%/ {
+      if $version =~ /^(latest|installed)$/ {
         apt::pin { 'pin_dovecot_version': ensure => absent }
       } else {
         apt::pin { 'pin_dovecot_version':
