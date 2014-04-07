@@ -96,7 +96,7 @@ class dovecot (
 
         $release = downcase($::lsbdistcodename)
         apt::pin { 'pin_dovecot_release':
-          packages => 'dovecot',
+          packages => 'dovecot-*',
           release  => "${release}-backports",
           priority => '995',
         }
