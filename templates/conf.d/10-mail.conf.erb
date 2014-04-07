@@ -52,10 +52,16 @@ namespace inbox {
   # namespaces or some clients get confused. '/' is usually a good one.
   # The default however depends on the underlying mail storage format.
   #separator = 
+<% if @inbox_separator -%>
+  inbox_separator = <%= @inbox_separator %>
+<% end -%>
 
   # Prefix required to access this namespace. This needs to be different for
   # all namespaces. For example "Public/".
   #prefix = 
+<% if @inbox_prefix -%>
+  inbox_prefix = <%= @inbox_prefix %>
+<% end -%>
 
   # Physical location of the mailbox. This is in same format as
   # mail_location, which is also the default for it.

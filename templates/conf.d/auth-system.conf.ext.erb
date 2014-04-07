@@ -56,8 +56,8 @@ userdb {
 
   # Override fields from passwd
   #override_fields = home=/home/virtual/%u
-<% if @userdb_passwd_override_field -%>
-  override_fields = <%= @userdb_passwd_override_field %>
+<% if @userdb_passwd_override_fields -%>
+  override_fields = <%= @userdb_passwd_override_fields %>
 <% end -%>
 }
 

@@ -32,6 +32,8 @@ class dovecot (
     $mail_debug                    = undef,
     # 10-mail.conf
     $mail_location                 = undef,
+    $inbox_separator               = undef,
+    $inbox_prefix                  = undef,
     $mmap_disable                  = undef,
     $dotlock_use_excl              = undef,
     $mail_fsync                    = undef,
