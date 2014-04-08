@@ -46,6 +46,9 @@ class dovecot (
     $auth_listener_userdb_user     = undef,
     $auth_listener_userdb_group    = undef,
     $auth_listener_postfix         = false,
+    $lmtp_inet_listener            = false,
+    $lmtp_address                  = '127.0.0.1',
+    $lmtp_port                     = '24',
     $lmtp_socket_path              = undef,
     # 10-ssl.conf
     $ssl                           = undef,
