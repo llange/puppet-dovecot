@@ -7,3 +7,6 @@ summary 'Dovecot IMAP server module'
 description "Install, enable and configure the Dovecot IMAP server."
 project_page 'https://github.com/mxhero/puppet-modules/tree/master/modules/dovecot'
 
+## Add dependencies, if any:
+# if backports is used
+dependency 'puppetlabs/apt', '>= 1.4.0'
