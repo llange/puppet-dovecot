@@ -77,6 +77,20 @@ class dovecot (
     # auth-master.conf.ext / master-users
     $auth_master_pass              = false,
     $master_users                  = '',
+    # auth-ldap.conf.ext
+    $ldap_prefetch                 = undef,
+    # dovecot-ldap.conf.ext
+    $ldap_uris                     = undef,
+    $ldap_dn                       = undef,
+    $ldap_dnpass                   = undef,
+    $ldap_auth_bind                = undef,
+    $ldap_base                     = undef,
+    $ldap_user_attrs               = undef,
+    $ldap_user_filter              = undef,
+    $ldap_pass_attrs               = undef,
+    $ldap_pass_filter              = undef,
+    $ldap_iterate_attrs            = undef,
+    $ldap_iterate_filter           = undef,
 ) {
 
     case $::operatingsystem {
@@ -167,6 +181,17 @@ class dovecot (
     }
     file { '/etc/dovecot/conf.d/auth-master.conf.ext':
         content => template('dovecot/conf.d/auth-master.conf.ext.erb'),
+    }
+
+    dovecot::file {'conf.d/auth-ldap.conf.ext':
+      group   => dovecot,
+      mode    => '0640',
+      content => template('dovecot/conf.d/auth-ldap.conf.ext.erb')
+    }
+    dovecot::file {'dovecot-ldap.conf.ext':
+      group   => dovecot,
+      mode    => '0640',
+      content => template('dovecot/dovecot-ldap.conf.ext.erb')
     }
 
     # file with master users
