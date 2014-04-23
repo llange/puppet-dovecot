@@ -122,7 +122,7 @@ class dovecot (
 
     # Main package and service it provides
     package { $packages:
-        ensure => installed,
+        ensure => latest,
         tag    => 'dovecot-packages',
     }
     service { 'dovecot':

@@ -8,7 +8,7 @@
 #
 define dovecot::plugin() {
   package { "dovecot-${title}":
-    ensure => $dovecot::version,
+    ensure => latest,
     tag    => 'dovecot-packages',
   }
 }
