@@ -24,6 +24,9 @@ class dovecot (
     $auth_master_separator         = '*',
     $auth_mechanisms               = 'plain',
     $auth_include                  = [ 'system' ],
+    $auth_cache_size               = undef,
+    $auth_cache_ttl                = undef,
+    $auth_cache_negative_ttl       = undef,
     # 10-logging.conf
     $log_path                      = undef,
     $log_timestamp                 = undef,
