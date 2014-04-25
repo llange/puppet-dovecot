@@ -101,7 +101,7 @@ class dovecot (
         $packages = 'dovecot'
       }
       /^(Debian|Ubuntu)$/:{
-        $packages = ['dovecot-common','dovecot-imapd', 'dovecot-pop3d', 'dovecot-mysql', 'dovecot-lmtpd']
+        $packages = ['dovecot-core','dovecot-imapd', 'dovecot-pop3d', 'dovecot-mysql', 'dovecot-lmtpd']
       }
       default: {
         fail("OS ${::operatingsystem} and version ${::operatingsystemrelease} is not supported")
@@ -135,7 +135,7 @@ class dovecot (
     }
 
     # Install plugins (sub-packages)
-    dovecot::plugin { $plugins: before => Package[$packages] }
+    dovecot::plugin { $plugins: require => Package[$packages] }
 
     # Main package and service it provides
     package { $packages:
