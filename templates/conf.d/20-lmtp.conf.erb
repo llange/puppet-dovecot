@@ -15,7 +15,7 @@
 protocol lmtp {
   # Space separated list of plugins to load (default is global mail_plugins).
   #mail_plugins = $mail_plugins
-<% if @lda_mail_plugins -%>
+<% if @lmtp_mail_plugins -%>
   mail_plugins = <%= @lmtp_mail_plugins %>
 <% end -%>
 }
