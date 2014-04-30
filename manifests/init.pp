@@ -42,6 +42,8 @@ class dovecot (
     $mail_fsync                    = undef,
     $mail_nfs_storage              = undef,
     $mail_nfs_index                = undef,
+    $first_valid_uid               = false,
+    $last_valid_uid                = false,
     # 10-master.conf
     $default_process_limit         = undef,
     $default_client_limit          = undef,
@@ -62,6 +64,8 @@ class dovecot (
     $postmaster_address            = undef,
     $hostname                      = undef,
     $lda_mail_plugins              = undef,
+    # 20-imap.conf
+    $mail_max_userip_connections   = undef,
     # 20-lmtp.conf
     $lmtp_mail_plugins             = undef,
     # 90-sieve.conf
@@ -72,9 +76,6 @@ class dovecot (
     $sieve_extensions              = undef,
     # auth-sql.conf.ext
     $auth_sql_userdb_static        = undef,
-    $mail_max_userip_connections   = 512,
-    $first_valid_uid               = false,
-    $last_valid_uid                = false,
     # auth-system.conf.ext
     $userdb_passwd_override_fields = undef,
     # auth-master.conf.ext / master-users
@@ -172,6 +173,9 @@ class dovecot (
     }
     file { '/etc/dovecot/conf.d/15-lda.conf':
         content => template('dovecot/conf.d/15-lda.conf.erb'),
+    }
+    file { '/etc/dovecot/conf.d/20-imap.conf':
+        content => template('dovecot/conf.d/20-imap.conf.erb'),
     }
     file { '/etc/dovecot/conf.d/20-lmtp.conf':
         content => template('dovecot/conf.d/20-lmtp.conf.erb'),
