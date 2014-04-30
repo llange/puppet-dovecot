@@ -173,6 +173,9 @@ class dovecot (
     file { '/etc/dovecot/conf.d/15-lda.conf':
         content => template('dovecot/conf.d/15-lda.conf.erb'),
     }
+    file { '/etc/dovecot/conf.d/20-lmtp.conf':
+        content => template('dovecot/conf.d/20-lmtp.conf.erb'),
+    }
     file { '/etc/dovecot/conf.d/90-sieve.conf':
         content => template('dovecot/conf.d/90-sieve.conf.erb'),
     }
@@ -185,12 +188,10 @@ class dovecot (
     file { '/etc/dovecot/conf.d/auth-master.conf.ext':
         content => template('dovecot/conf.d/auth-master.conf.ext.erb'),
     }
-
-    dovecot::file {'conf.d/auth-ldap.conf.ext':
-      group   => dovecot,
-      mode    => '0640',
-      content => template('dovecot/conf.d/auth-ldap.conf.ext.erb')
+    file { '/etc/dovecot/conf.d/auth-ldap.conf.ext':
+        content => template('dovecot/conf.d/auth-ldap.conf.ext.erb'),
     }
+
     dovecot::file {'dovecot-ldap.conf.ext':
       group   => dovecot,
       mode    => '0640',
