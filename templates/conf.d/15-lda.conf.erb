@@ -20,13 +20,21 @@ hostname = <%= @hostname %>
 
 # If user is over quota, return with temporary failure instead of
 # bouncing the mail.
+<% if @quota_full_tempfail -%>
+quota_full_tempfail = <%= @quota_full_tempfail %>
+<% else -%>
 #quota_full_tempfail = no
+<% end -%>
 
 # Binary to use for sending mails.
 #sendmail_path = /usr/sbin/sendmail
 
 # If non-empty, send mails via this SMTP host[:port] instead of sendmail.
+<% if @submission_host -%>
+submission_host = <%= @submission_host %>
+<% else -%>
 #submission_host =
+<% end -%>
 
 # Subject: header to use for rejection mails. You can use the same variables
 # as for rejection_reason below.
@@ -37,7 +45,11 @@ hostname = <%= @hostname %>
 #rejection_reason = Your message to <%%t> was automatically rejected:%n%r
 
 # Delimiter character between local-part and detail in email address.
+<% if @recipient_delimiter %>
+recipient_delimiter = <%= @recipient_delimiter %>
+<% else %>
 #recipient_delimiter = +
+<% end %>
 
 # Header where the original recipient address (SMTP's RCPT TO: address) is taken
 # from if not available elsewhere. With dovecot-lda -a parameter overrides this. 

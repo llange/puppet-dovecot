@@ -24,11 +24,11 @@ default_client_limit = <%= @default_client_limit %>
 
 service imap-login {
   inet_listener imap {
-    #port = 143
+    port = 143
   }
   inet_listener imaps {
-    #port = 993
-    #ssl = yes
+    port = 993
+    ssl = yes
   }
 
   # Number of connections to handle before starting a new process. Typically
@@ -45,11 +45,11 @@ service imap-login {
 
 service pop3-login {
   inet_listener pop3 {
-    #port = 110
+    port = 110
   }
   inet_listener pop3s {
-    #port = 995
-    #ssl = yes
+    port = 995
+    ssl = yes
   }
 }
 
@@ -102,6 +102,9 @@ service auth {
   # something else than 0666 and Dovecot lets the kernel enforce the
   # permissions (e.g. 0777 allows everyone full permissions).
   unix_listener auth-userdb {
+<% if @auth_listener_userdb_mode -%>
+    mode = <%= @auth_listener_userdb_mode %>
+<% end -%>
     #mode = 0666
     #user = 
 <% if @auth_listener_userdb_user -%>

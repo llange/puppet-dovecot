@@ -114,8 +114,16 @@ namespace inbox {
 # System user and group used to access mails. If you use multiple, userdb
 # can override these by returning uid or gid fields. You can use either numbers
 # or names. <doc/wiki/UserIds.txt>
+<% if @auth_listener_userdb_user %>
+mail_uid = <%= @auth_listener_userdb_user %>
+<% else %>
 #mail_uid =
+<% end %>
+<% if @auth_listener_userdb_group %>
+mail_gid = <%= @auth_listener_userdb_group %>
+<% else %>
 #mail_gid =
+<% end %>
 
 # Group to enable temporarily for privileged operations. Currently this is
 # used only with INBOX when either its initial creation or dotlocking fails.
@@ -239,7 +247,12 @@ last_valid_uid = <%= @last_valid_uid %>
 
 # Space separated list of plugins to load for all services. Plugins specific to
 # IMAP, LDA, etc. are added to this list in their own .conf files.
+<% if @mail_plugins or @with_quota %>
+mail_plugins = <%= @mail_plugins %><% if @with_quota -%>quota<% end -%>
+<% else %>
 #mail_plugins = 
+<% end %>
+
 
 ##
 ## Mailbox handling optimizations
@@ -247,7 +260,11 @@ last_valid_uid = <%= @last_valid_uid %>
 
 # Mailbox list indexes can be used to optimize IMAP STATUS commands. They are
 # also required for IMAP NOTIFY extension to be enabled.
+<% if @mailbox_list_index %>
+mailbox_list_index = <%= @mailbox_list_index %>
+<% else %>
 #mailbox_list_index = no
+<% end %>
 
 # The minimum number of mails in a mailbox before updates are done to cache
 # file. This allows optimizing Dovecot's behavior to do less disk writes at
