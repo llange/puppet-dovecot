@@ -21,39 +21,31 @@ namespace inbox {
     driver = 
     special_use = \Trash
   }
+  mailbox Trash {
+    special_use = \Trash
+    auto = subscribe
+  }
   mailbox Drafts {
     special_use = \Drafts
+    auto = subscribe
   }
   mailbox Junk {
     special_use = \Junk
-  }
-  mailbox Trash {
-    special_use = \Trash
+    auto = subscribe
   }
 
   # For \Sent mailboxes there are two widely used names. We'll mark both of
   # them as \Sent. User typically deletes one of them if duplicates are created.
   mailbox Sent {
     special_use = \Sent
+    auto = subscribe
   }
   mailbox "Sent Messages" {
     special_use = \Sent
   }
-
-  # If you have a virtual "All messages" mailbox:
-  #mailbox virtual/All {
-  #  special_use = \All
-  #}
-
-  # If you have a virtual "Flagged" mailbox:
-  #mailbox virtual/Flagged {
-  #  special_use = \Flagged
-  #}
-  mailbox Trash {
-    special_use = \Trash
-  }
-  mailbox "Deleted Messages" {
-    special_use = \Trash
-  }
+  #mailbox_alias_old = Sent
+  #mailbox_alias_new = Sent Messages
+  #mailbox_alias_old2 = Sent
+  #mailbox_alias_new2 = Sent Items
 }
 
