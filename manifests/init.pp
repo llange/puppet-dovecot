@@ -14,9 +14,12 @@ class dovecot (
     $protocols                     = undef,
     $listen                        = undef,
     $login_greeting                = undef,
+    $mail_plugins                  = undef,
     $login_trusted_networks        = undef,
     $verbose_proctitle             = undef,
     $shutdown_clients              = undef,
+    $recipient_delimiter           = undef,
+    $quota_full_tempfail           = undef,
     # 10-auth.conf
     $disable_plaintext_auth        = undef,
     $auth_username_chars           = undef,
@@ -44,6 +47,7 @@ class dovecot (
     $mail_nfs_index                = undef,
     $first_valid_uid               = false,
     $last_valid_uid                = false,
+    $mailbox_list_index		   = undef,
     # 10-master.conf
     $default_process_limit         = undef,
     $default_client_limit          = undef,
@@ -63,9 +67,11 @@ class dovecot (
     # 15-lda.conf
     $postmaster_address            = undef,
     $hostname                      = undef,
+    $submission_host               = undef,
     $lda_mail_plugins              = undef,
     # 20-imap.conf
     $mail_max_userip_connections   = undef,
+    $imap_mail_plugins             = undef,
     # 20-lmtp.conf
     $lmtp_mail_plugins             = undef,
     # 90-sieve.conf
@@ -74,8 +80,12 @@ class dovecot (
     $sieve_dir                     = '~/sieve',
     $sieve_global_dir              = undef,
     $sieve_extensions              = undef,
+    # 20-managesieve.conf 
+    $managesieve_notify_capability = undef,
+    $managesieve_sieve_capability  = undef,
     # auth-sql.conf.ext
     $auth_sql_userdb_static        = undef,
+    $mysql_connect_string          = undef,
     # auth-system.conf.ext
     $userdb_passwd_override_fields = undef,
     # auth-master.conf.ext / master-users
@@ -95,6 +105,8 @@ class dovecot (
     $ldap_pass_filter              = undef,
     $ldap_iterate_attrs            = undef,
     $ldap_iterate_filter           = undef,
+    # 90-quota.conf
+    $with_quota			   = undef,
 ) {
 
     case $::operatingsystem {
@@ -140,8 +152,8 @@ class dovecot (
 
     # Main package and service it provides
     package { $packages:
-        ensure => latest,
-        tag    => 'dovecot-packages',
+        ensure          => latest,
+        tag             => 'dovecot-packages',
     }
     service { 'dovecot':
         ensure    => running,
@@ -174,17 +186,29 @@ class dovecot (
     file { '/etc/dovecot/conf.d/15-lda.conf':
         content => template('dovecot/conf.d/15-lda.conf.erb'),
     }
+    file { '/etc/dovecot/conf.d/15-mailboxes.conf':
+        content => template('dovecot/conf.d/15-mailboxes.conf.erb'),
+    }
     file { '/etc/dovecot/conf.d/20-imap.conf':
         content => template('dovecot/conf.d/20-imap.conf.erb'),
     }
     file { '/etc/dovecot/conf.d/20-lmtp.conf':
         content => template('dovecot/conf.d/20-lmtp.conf.erb'),
     }
+    file { '/etc/dovecot/conf.d/20-managesieve.conf.conf':
+        content => template('dovecot/conf.d/20-managesieve.conf.erb'),
+    }
     file { '/etc/dovecot/conf.d/90-sieve.conf':
         content => template('dovecot/conf.d/90-sieve.conf.erb'),
     }
+    file { '/etc/dovecot/conf.d/90-plugin.conf':
+        content => template('dovecot/conf.d/90-plugin.conf.erb'),
+    }
     file { '/etc/dovecot/conf.d/auth-sql.conf.ext':
         content => template('dovecot/conf.d/auth-sql.conf.ext.erb'),
+    }
+    file { '/etc/dovecot/dovecot-sql.conf.ext':
+        content => template('dovecot/dovecot-sql.conf.ext.erb'),
     }
     file { '/etc/dovecot/conf.d/auth-system.conf.ext':
         content => template('dovecot/conf.d/auth-system.conf.ext.erb'),
@@ -194,6 +218,19 @@ class dovecot (
     }
     file { '/etc/dovecot/conf.d/auth-ldap.conf.ext':
         content => template('dovecot/conf.d/auth-ldap.conf.ext.erb'),
+    }
+
+    if $with_quota == "yes" {
+      file { '/usr/local/bin/quota-warning.sh':
+        content => template('dovecot/quota-warning.sh.erb'),
+        mode    => '0555',
+        owner   => 0,
+        group   => 0,
+      }
+    } else {
+      file { '/usr/local/bin/quota-warning.sh':
+        ensure => absent,
+      }
     }
 
     dovecot::file {'dovecot-ldap.conf.ext':

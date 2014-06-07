@@ -7,9 +7,11 @@
 #     class { 'dovecot': plugins => [ 'mysql', 'pigeonhole' ] }
 #
 define dovecot::plugin() {
-  package { "dovecot-${title}":
-    ensure => latest,
-    tag    => 'dovecot-packages',
+  if $title != "mysql" {
+    package { "dovecot-${title}":
+      ensure => latest,
+      tag    => 'dovecot-packages',
+    }
   }
 }
 
