@@ -56,7 +56,7 @@
 protocol imap {
   # Space separated list of plugins to load (default is global mail_plugins).
   <% if @imap_mail_plugins or @with_quota %>
-  mail_plugins = $mail_plugins <% if @with_quota -%>imap_quota<% end -%><%= @imap_mail_plugins %>
+  mail_plugins = $mail_plugins<% if @with_quota -%> imap_quota<% end -%> <%= @imap_mail_plugins %>
   <% else %>
   #mail_plugins = $mail_plugins
   <% end %>
