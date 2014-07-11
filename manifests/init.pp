@@ -101,8 +101,9 @@ class dovecot (
     $auth_master_separator      = '*',
     $mail_max_userip_connections = 512,
     $first_valid_uid             = false,
-    $last_valid_uid              = false
+    $last_valid_uid              = false,
 
+    $manage_service              = true,
 ) {
 
     case $::operatingsystem {
@@ -125,9 +126,16 @@ class dovecot (
     }
 
     # All files in this scope are dovecot configuration files
-    File {
+    if $manage_service {
+      File {
         notify  => Service['dovecot'],
         require => Package[$packages],
+      }
+    }
+    else {
+      File {
+        require => Package[$packages],
+      }
     }
 
     # Install plugins (sub-packages)
@@ -135,7 +143,8 @@ class dovecot (
 
     # Main package and service it provides
     package { $packages: ensure => installed }
-    service { 'dovecot':
+    if $manage_service {
+      service { 'dovecot':
         enable    => true,
         ensure    => running,
         hasstatus => true,
