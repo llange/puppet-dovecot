@@ -11,7 +11,7 @@ This module relies heavily on the conf.d structure adopted by dovecot 2.x.
 
 ## Example Configuration
 
-```
+```puppet
 class { 'dovecot':
   plugins                    => [ 'mysql', 'pigeonhole' ],
   protocols                  => 'imap pop3 sieve',
@@ -38,13 +38,17 @@ dovecot::file { 'dovecot-sql.conf.ext':
 
 ## Configure SQL authentication
 
-```
+```puppet
 class { 'dovecot::sql':
   db_driver => 'mysql',
   db_host   => '172.0.0.1',
   db_name   => 'dovecot',
   db_pass   => 'dovecot',
   db_user   => 'dovecot',
+  log_timestamp              => '%Y-%m-%d %H:%M:%S ',
+}
+dovecot::file { 'dovecot-sql.conf.ext':
+  source => 'puppet:///modules/example/dovecot-sql.conf.ext',
 }
 ```
 

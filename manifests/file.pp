@@ -4,7 +4,7 @@
 #
 # Example Usage:
 #     dovecot::file { 'dovecot-sql.conf.ext':
-#         source => 'puppet:///modules/mymodule/dovecot-sql.conf.ext',
+#       source => 'puppet:///modules/mymodule/dovecot-sql.conf.ext',
 #     }
 #
 define dovecot::file (
