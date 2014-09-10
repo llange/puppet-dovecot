@@ -18,6 +18,7 @@ class dovecot (
   $auth_include                 = [ 'system' ],
   $auth_mechanisms              = [ 'login', 'plain' ],
   $auth_username_chars          = undef,
+  $auth_username_format         = undef,
   $auth_master_separator        = '*',
   $disable_plaintext_auth       = undef,
   # 10-logging.conf
