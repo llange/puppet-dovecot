@@ -223,6 +223,9 @@ class dovecot (
     "${directory}/conf.d/20-imap.conf":
       content => template('dovecot/conf.d/20-imap.conf.erb');
 
+    "${directory}/conf.d/20-lmtp.conf":
+      content => template('dovecot/conf.d/20-lmtp.conf.erb');
+
     "${directory}/conf.d/20-pop3.conf":
       content => template('dovecot/conf.d/20-pop3.conf.erb');
 
@@ -243,13 +246,11 @@ class dovecot (
 
     "${directory}/conf.d/auth-master.conf.ext":
       content => template('dovecot/conf.d/auth-master.conf.ext.erb');
+
+    "${directory}/conf.d/auth-ldap.conf.ext":
+      content => template('dovecot/conf.d/auth-ldap.conf.ext.erb');
   }
 
-  dovecot::file {'conf.d/auth-ldap.conf.ext':
-    group   => dovecot,
-    mode    => '0640',
-    content => template('dovecot/conf.d/auth-ldap.conf.ext.erb')
-  }
   dovecot::file {'dovecot-ldap.conf.ext':
     group   => dovecot,
     mode    => '0640',
