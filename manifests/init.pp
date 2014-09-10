@@ -84,9 +84,11 @@ class dovecot (
   $pop3_uidl_format             = undef,
   # 90-sieve.conf
   $sieve                        = '~/.dovecot.sieve',
+  $sieve_default                = undef,
   $sieve_after                  = undef,
   $sieve_before                 = undef,
   $sieve_dir                    = '~/sieve',
+  $sieve_global_dir             = undef,
   $sieve_max_actions            = undef,
   $sieve_max_redirects          = undef,
   $sieve_max_script_size        = undef,
