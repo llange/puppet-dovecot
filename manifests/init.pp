@@ -18,6 +18,7 @@ class dovecot (
   $auth_include                 = [ 'system' ],
   $auth_mechanisms              = [ 'login', 'plain' ],
   $auth_username_chars          = undef,
+  $auth_master_separator        = '*',
   $disable_plaintext_auth       = undef,
   # 10-logging.conf
   $auth_debug                   = undef,
@@ -102,12 +103,14 @@ class dovecot (
   $auth_passwdfile_passdb       = undef,
   $auth_passwdfile_userdb       = undef,
   # auth-sql.conf.ext
-  $auth_master_separator        = '*',
   $auth_sql_path                = '/etc/dovecot/dovecot-sql.conf.ext',
   $auth_sql_userdb_static       = undef,
   $first_valid_uid              = false,
   $last_valid_uid               = false,
   $mail_max_userip_connections  = 512,
+  # auth-master.conf.ext / master-users
+  $auth_master_pass             = false,
+  $master_users                 = '',
 ) {
   case $::operatingsystem {
     'RedHat', 'CentOS': {
@@ -209,6 +212,16 @@ class dovecot (
 
     "${directory}/conf.d/auth-sql.conf.ext":
       content => template('dovecot/conf.d/auth-sql.conf.ext.erb');
+
+    "${directory}/conf.d/auth-master.conf.ext":
+      content => template('dovecot/conf.d/auth-master.conf.ext.erb');
+  }
+
+  # file with master users
+  dovecot::file {'master-users':
+    group   => dovecot,
+    mode    => '0640',
+    content => $master_users,
   }
 }
 
