@@ -35,6 +35,8 @@ class dovecot (
   $mail_nfs_storage             = undef,
   $mail_plugins                 = undef,
   $mail_privileged_group        = undef,
+  $inbox_separator              = undef,
+  $inbox_prefix                 = undef,
   $mmap_disable                 = undef,
   # 10-master.conf
   $auth_listener_default_user   = undef,
