@@ -108,6 +108,8 @@ class dovecot (
   $first_valid_uid              = false,
   $last_valid_uid               = false,
   $mail_max_userip_connections  = 512,
+  # auth-system.conf.ext
+  $userdb_passwd_override_fields = undef,
   # auth-master.conf.ext / master-users
   $auth_master_pass             = false,
   $master_users                 = '',
@@ -212,6 +214,9 @@ class dovecot (
 
     "${directory}/conf.d/auth-sql.conf.ext":
       content => template('dovecot/conf.d/auth-sql.conf.ext.erb');
+
+    "${directory}/conf.d/auth-system.conf.ext":
+      content => template('dovecot/conf.d/auth-system.conf.ext.erb');
 
     "${directory}/conf.d/auth-master.conf.ext":
       content => template('dovecot/conf.d/auth-master.conf.ext.erb');
