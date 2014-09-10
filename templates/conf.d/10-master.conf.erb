@@ -88,11 +88,13 @@ service lmtp {
   }
 
   # Create inet listener only if you can't use the above UNIX socket
-  #inet_listener lmtp {
+<% if @lmtp_inet_listener -%>
+  inet_listener lmtp {
     # Avoid making LMTP visible for the entire internet
-    #address =
-    #port = 
-  #}
+    address = <%= @lmtp_address %>
+    port = <%= @lmtp_port %>
+  }
+<% end -%>
 <% if @lmtp_socket_path -%>
   unix_listener <%= @lmtp_socket_path %> {
 <% if @lmtp_socket_user -%>
