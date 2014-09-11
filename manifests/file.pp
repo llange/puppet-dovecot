@@ -14,9 +14,8 @@ define dovecot::file (
   $owner   = 'root',
   $source  = undef
 ) {
-  case $::operatingsystem {
-    'FreeBSD': { $directory = '/usr/local/etc/dovecot' }
-    default:   { $directory = '/etc/dovecot' }
+  if ! defined(Class['dovecot']) {
+    fail('You must include the dovecot base class before using any dovecot defined resources')
   }
 
   file { "${directory}/${title}":
@@ -26,11 +25,11 @@ define dovecot::file (
     mode    => $mode,
     owner   => $owner,
     replace => true,
-    require => Package[$dovecot::packages],
+    require => Package[$::dovecot::packages],
     source  => $source,
   }
   if $dovecot::manage_service {
-    File["${directory}/${title}"] ~> Service['dovecot']
+    File["${::dovecot::directory}/${title}"] ~> Service['dovecot']
   }
 }
 
