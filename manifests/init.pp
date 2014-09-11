@@ -267,11 +267,17 @@ class dovecot (
     "${directory}/conf.d/90-sieve.conf":
       content => template('dovecot/conf.d/90-sieve.conf.erb');
 
+    "${directory}/conf.d/90-sieve-extprograms.conf":
+      content => template('dovecot/conf.d/90-sieve-extprograms.conf.erb');
+
     "${directory}/conf.d/dovecot-sql.conf.ext":
       content => template('dovecot/dovecot-sql.conf.ext.erb');
 
     "${directory}/conf.d/auth-passwdfile.conf.ext":
       content => template('dovecot/conf.d/auth-passwdfile.conf.ext.erb');
+
+    "${directory}/conf.d/auth-dict.conf.ext":
+      content => template('dovecot/conf.d/auth-dict.conf.ext.erb');
 
     "${directory}/conf.d/auth-sql.conf.ext":
       content => template('dovecot/conf.d/auth-sql.conf.ext.erb');
