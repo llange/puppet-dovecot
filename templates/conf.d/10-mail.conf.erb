@@ -248,7 +248,7 @@ last_valid_uid = <%= @last_valid_uid %>
 # IMAP, LDA, etc. are added to this list in their own .conf files.
 #mail_plugins = 
 <% if @mail_plugins or @with_quota -%>
-mail_plugins = <%= @mail_plugins %><% if @with_quota -%>quota<% end -%>
+mail_plugins = <%= @mail_plugins %><% if @with_quota -%>quota<% end %>
 <% end -%>
 
 ##
