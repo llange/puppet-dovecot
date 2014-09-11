@@ -16,6 +16,11 @@ namespace inbox {
   #}
 
   # These mailboxes are widely used and could perhaps be created automatically:
+  mailbox "Deleted Messages" {
+    auto = no
+    driver = 
+    special_use = \Trash
+  }
   mailbox Drafts {
     special_use = \Drafts
   }

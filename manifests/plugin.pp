@@ -6,9 +6,12 @@
 # Example Usage:
 #     class { 'dovecot': plugins => [ 'mysql', 'pigeonhole' ] }
 #
+<<<<<<< HEAD
 define dovecot::plugin( $prefix = 'dovecot' ) {
-  package { "${prefix}-${title}":
-    ensure => installed,
+  if $title != "mysql" {
+    package { "${prefix}-${title}":
+      ensure => installed,
+    }
   }
 }
 

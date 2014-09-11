@@ -14,6 +14,8 @@ class dovecot (
   $protocols                    = undef,
   $shutdown_clients             = undef,
   $verbose_proctitle            = undef,
+  $recipient_delimiter          = undef,
+  $quota_full_tempfail          = undef,
   # 10-auth.conf
   $auth_include                 = [ 'system' ],
   $auth_mechanisms              = [ 'login', 'plain' ],
@@ -43,6 +45,7 @@ class dovecot (
   $mmap_disable                 = undef,
   $first_valid_uid              = false,
   $last_valid_uid               = false,
+  $mailbox_list_index           = undef,
   # 10-master.conf
   $auth_listener_default_user   = undef,
   $auth_listener_postfix        = false,
@@ -84,6 +87,7 @@ class dovecot (
   $lda_mailbox_autocreate       = undef,
   $lda_mailbox_autosubscribe    = undef,
   $postmaster_address           = undef,
+  $submission_host              = undef,
   # 20-imap.conf
   $imap_client_workarounds      = undef,
   $imap_mail_plugins            = undef,
@@ -91,6 +95,9 @@ class dovecot (
   # 20-lmtp.conf
   $lmtp_mail_plugins            = undef,
   $lmtp_save_to_detail_mailbox  = undef,
+  # 20-managesieve.conf 
+  $managesieve_notify_capability = undef,
+  $managesieve_sieve_capability  = undef,
   # 20-pop3.conf
   $pop3_client_workarounds      = undef,
   $pop3_mail_plugins            = undef,
@@ -220,20 +227,32 @@ class dovecot (
     "${directory}/conf.d/15-lda.conf":
       content => template('dovecot/conf.d/15-lda.conf.erb');
 
+    "${directory}/conf.d/15-mailboxes.conf":
+      content => template('dovecot/conf.d/15-mailboxes.conf.erb');
+
     "${directory}/conf.d/20-imap.conf":
       content => template('dovecot/conf.d/20-imap.conf.erb');
 
     "${directory}/conf.d/20-lmtp.conf":
       content => template('dovecot/conf.d/20-lmtp.conf.erb');
 
+    "${directory}/conf.d/20-managesieve.conf":
+      content => template('dovecot/conf.d/20-managesieve.conf.erb');
+
     "${directory}/conf.d/20-pop3.conf":
       content => template('dovecot/conf.d/20-pop3.conf.erb');
+
+    "${directory}/conf.d/90-plugin.conf":
+      content => template('dovecot/conf.d/90-plugin.conf.erb');
 
     "${directory}/conf.d/90-quota.conf":
       content => template('dovecot/conf.d/90-quota.conf.erb');
 
     "${directory}/conf.d/90-sieve.conf":
       content => template('dovecot/conf.d/90-sieve.conf.erb');
+
+    "${directory}/conf.d/dovecot-sql.conf.ext":
+      content => template('dovecot/dovecot-sql.conf.ext.erb');
 
     "${directory}/conf.d/auth-passwdfile.conf.ext":
       content => template('dovecot/conf.d/auth-passwdfile.conf.ext.erb');
@@ -249,6 +268,19 @@ class dovecot (
 
     "${directory}/conf.d/auth-ldap.conf.ext":
       content => template('dovecot/conf.d/auth-ldap.conf.ext.erb');
+  }
+
+  if $with_quota == "yes" {
+    file { '/usr/local/bin/quota-warning.sh':
+      content => template('dovecot/quota-warning.sh.erb'),
+      mode    => '0555',
+      owner   => 0,
+      group   => 0,
+    }
+  } else {
+    file { '/usr/local/bin/quota-warning.sh':
+      ensure => absent,
+    }
   }
 
   dovecot::file {'dovecot-ldap.conf.ext':
