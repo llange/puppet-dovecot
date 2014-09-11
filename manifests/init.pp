@@ -41,6 +41,8 @@ class dovecot (
   $inbox_separator              = undef,
   $inbox_prefix                 = undef,
   $mmap_disable                 = undef,
+  $first_valid_uid              = false,
+  $last_valid_uid               = false,
   # 10-master.conf
   $auth_listener_default_user   = undef,
   $auth_listener_postfix        = false,
@@ -85,6 +87,7 @@ class dovecot (
   # 20-imap.conf
   $imap_client_workarounds      = undef,
   $imap_mail_plugins            = undef,
+  $mail_max_userip_connections  = 512,
   # 20-lmtp.conf
   $lmtp_mail_plugins            = undef,
   $lmtp_save_to_detail_mailbox  = undef,
@@ -114,9 +117,6 @@ class dovecot (
   # auth-sql.conf.ext
   $auth_sql_path                = '/etc/dovecot/dovecot-sql.conf.ext',
   $auth_sql_userdb_static       = undef,
-  $first_valid_uid              = false,
-  $last_valid_uid               = false,
-  $mail_max_userip_connections  = 512,
   # auth-system.conf.ext
   $userdb_passwd_override_fields = undef,
   # auth-master.conf.ext / master-users
