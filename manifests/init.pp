@@ -334,7 +334,7 @@ class dovecot (
 
   # file with users
   dovecot::file {'users':
-    user   => dovecot,
+    owner   => dovecot,
     group   => root,
     mode    => '0400',
     content => $users,
