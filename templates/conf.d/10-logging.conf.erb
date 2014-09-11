@@ -36,6 +36,9 @@ auth_verbose = yes
 # attempts vs. user simply trying the same password over and over again.
 # You can also truncate the value to n chars by appending ":n" (e.g. sha1:6).
 #auth_verbose_passwords = no
+<% if @auth_verbose_passwords -%>
+auth_verbose_passwords = sha1
+<% end -%>
 
 # Even more verbose logging for debugging purposes. Shows for example SQL
 # queries.
@@ -47,6 +50,9 @@ auth_debug = yes
 # In case of password mismatches, log the passwords and used scheme so the
 # problem can be debugged. Enabling this also enables auth_debug.
 #auth_debug_passwords = no
+<% if @auth_debug_passwords -%>
+auth_debug_passwords = yes
+<% end -%>
 
 # Enable mail process debugging. This can help you figure out why Dovecot
 # isn't finding your mails.
@@ -57,6 +63,9 @@ mail_debug = yes
 
 # Show protocol level SSL errors.
 #verbose_ssl = no
+<% if @verbose_ssl -%>
+verbose_ssl = yes
+<% end -%>
 
 # mail_log plugin provides more event logging for mail processes.
 plugin {

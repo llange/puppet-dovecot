@@ -30,6 +30,9 @@ class dovecot (
   # 10-logging.conf
   $auth_debug                   = undef,
   $auth_verbose                 = undef,
+  $auth_verbose_passwords		= undef,
+  $auth_debug_passwords			= undef,
+  $verbose_ssl					= undef,
   $log_path                     = undef,
   $log_timestamp                = undef,
   $mail_debug                   = undef,
