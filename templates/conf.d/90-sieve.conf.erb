@@ -90,9 +90,9 @@ plugin {
   # left of the separator and the :detail part is right. This setting
   # is also used by Dovecot's LMTP service.
   #recipient_delimiter = +
-<% if @recipient_delimiter %>
+<%- if @recipient_delimiter -%>
   recipient_delimiter = <%= @recipient_delimiter %>
-<% end %>
+<%- end -%>
 
   # The maximum size of a Sieve script. The compiler will refuse to compile any
   # script larger than this limit. If set to 0, no limit on the script size is
@@ -131,12 +131,12 @@ plugin {
   <%- if @sieve_quota_max_storage-%>
   sieve_quota_max_storage = <%= @sieve_quota_max_storage %>
   <%- end -%>
-
   <%- if @sieve_before -%>
+
   sieve_before = <%= @sieve_before %>
   <%- end -%>
-
   <%- if @sieve_after -%>
+
   sieve_after = <%= @sieve_after %>
   <%- end -%>
 }
