@@ -58,14 +58,23 @@ ssl_key = <<%= @ssl_key %>
 
 # DH parameters length to use.
 #ssl_dh_parameters_length = 1024
+<% if @ssl_dh_parameters_length -%>
+ssl_dh_parameters_length = <%= @ssl_dh_parameters_length %>
+<% end -%>
 
 # How often to regenerate the SSL parameters file. Generation is quite CPU
 # intensive operation. The value is in hours, 0 disables regeneration
 # entirely.
 #ssl_parameters_regenerate = 168
+<% if @ssl_parameters_regenerate -%>
+ssl_parameters_regenerate = <%= @ssl_parameters_regenerate %>
+<% end -%>
 
 # SSL protocols to use
 #ssl_protocols = !SSLv2
+<% if @ssl_protocols -%>
+ssl_protocols = <%= @ssl_protocols %>
+<% end -%>
 
 # SSL ciphers to use
 #ssl_cipher_list = ALL:!LOW:!SSLv2:!EXP:!aNULL
@@ -75,6 +84,9 @@ ssl_cipher_list = <%= @ssl_cipher_list %>
 
 # Prefer the server's order of ciphers over client's.
 #ssl_prefer_server_ciphers = no
+<% if @ssl_prefer_server_ciphers -%>
+ssl_prefer_server_ciphers = yes
+<% end -%>
 
 # SSL crypto device to use, for valid values run "openssl engine"
 #ssl_crypto_device =
