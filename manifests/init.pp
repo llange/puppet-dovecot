@@ -69,6 +69,7 @@ class dovecot (
   $imap_login_process_min_avail = undef,
   $imap_login_service_count     = undef,
   $imap_login_vsz_limit         = undef,
+  $imap_vsz_limit               = undef,
   $imaps_listen_port            = '993',
   $lmtp_inet_listener           = false,
   $lmtp_address                 = '127.0.0.1',
