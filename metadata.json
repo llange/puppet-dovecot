@@ -1,0 +1,14 @@
+{
+  "name": "llange-dovecot",
+  "version": "0.1.0",
+  "author": "(Juan Pablo Royo and others) Ludovic LANGE",
+  "summary": "Dovecot IMAP server module",
+  "license": "Apache 2.0",
+  "source": "https://github.com/llange/puppet-dovecot",
+  "project_page": "https://github.com/llange/puppet-dovecot",
+  "issues_url": "https://github.com/llange/puppet-dovecot/issues",
+  "description": "Install, enable and configure the Dovecot IMAP server.",
+  "dependencies": [
+  
+  ]
+}
