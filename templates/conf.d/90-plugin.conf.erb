@@ -12,10 +12,19 @@ plugin {
   #setting_name = value
   antispam_backend = dspam
   antispam_signature = X-DSPAM-Signature
-  antispam_spam = \Junk
-  antispam_trash = \Trash
-  antispam_unsure = \Trash
+  antispam_spam = Spam;spam;Junk;junk;Courrier ind&AOk-sirable;Courriers ind&AOk-sirables;Pourriels
+  antispam_trash = trash;Trash;Deleted Items;Deleted Messages;&AMk-l&AOk-ments supprim&AOk-s
+  antispam_unsure = Virus
   quota = dict:User quota::proxy::quota
+  antispam_dspam_env = HOME=%h;USER=%u
+  antispam_dspam_args = --deliver=;--user;%u;--source=error;--signature=%%s
+   # command line argument to specify that mail should be reclassified
+   # as SPAM. Optional, default = "--class=spam".
+   antispam_dspam_spam = --class=spam
+
+   # command line argument to specify that mail should be reclassified
+   # as not SPAM. Optional, default = "--class=innocent".
+  antispam_dspam_notspam = --class=innocent
 }
 
 #plugin {

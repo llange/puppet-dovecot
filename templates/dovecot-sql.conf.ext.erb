@@ -127,8 +127,9 @@ default_pass_scheme = CRAM-MD5
 #   user_query = SELECT home, 501 AS uid, 501 AS gid FROM users WHERE userid = '%u'
 #
 user_query = \
-  SELECT homedir AS home, uid, gid \
-  FROM mailbox WHERE username = '%n' AND domain = '%d'
+  SELECT homedir AS home, uid, gid, \
+  concat('*:bytes=', quota) AS quota_rule \
+  FROM mailbox WHERE username = '%u'
 
 # If you wish to avoid two SQL lookups (passdb + userdb), you can use
 # userdb prefetch instead of userdb sql in dovecot.conf. In that case you'll
@@ -140,7 +141,8 @@ user_query = \
 #  FROM users WHERE userid = '%u'
 password_query = \
   SELECT username AS user, password, \
-    homedir AS userdb_home, uid AS userdb_uid, gid AS userdb_gid \
+    homedir AS userdb_home, uid AS userdb_uid, gid AS userdb_gid, \
+    concat('*:bytes=', quota) AS userdb_quota_rule \
   FROM mailbox WHERE username = '%u'
 
 # Query to get a list of all usernames.
