@@ -6,6 +6,9 @@
 
 # Uncomment to enable managesieve protocol:
 #protocols = $protocols sieve
+<% if @managesieve_protocols -%>
+managesieve_protocols = <%= @managesieve_protocols %>
+<% end -%>
 
 # Service definitions
 

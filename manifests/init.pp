@@ -16,6 +16,7 @@ class dovecot (
   $verbose_proctitle            = undef,
   $recipient_delimiter          = undef,
   $quota_full_tempfail          = undef,
+  $mail_home                    = '/var/vmail/%d/%n/',
   # 10-auth.conf
   $auth_include                 = [ 'system' ],
   $auth_mechanisms              = [ 'login', 'plain' ],
@@ -100,12 +101,14 @@ class dovecot (
   $imap_client_workarounds      = undef,
   $imap_mail_plugins            = undef,
   $mail_max_userip_connections  = 512,
+  $imap_idle_notify_interval    = undef,
   # 20-lmtp.conf
   $lmtp_mail_plugins            = undef,
   $lmtp_save_to_detail_mailbox  = undef,
   # 20-managesieve.conf 
   $managesieve_notify_capability = undef,
   $managesieve_sieve_capability  = undef,
+  $managesieve_protocols        = undef,
   # 20-pop3.conf
   $pop3_client_workarounds      = undef,
   $pop3_mail_plugins            = undef,

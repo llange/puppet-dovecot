@@ -99,7 +99,10 @@ shutdown_clients = <%= @shutdown_clients %>
 # key=value pairs to always set specific settings.
 #import_environment = TZ
 
-mail_home = /var/vmail/%d/%n/
+<% if @mail_home -%>
+mail_home = <%= @mail_home %>
+<% end -%>
+
 ##
 ## Dictionary server settings
 ##
