@@ -2,7 +2,7 @@
 
 ## Dovecot configuration file
 
-# If you're in a hurry, see http://wiki.dovecot.org/QuickConfiguration
+# If you're in a hurry, see http://wiki2.dovecot.org/QuickConfiguration
 
 # "doveconf -n" command gives a clean output of the changed settings. Use it
 # instead of copy&pasting files when posting to the Dovecot mailing list.
@@ -10,6 +10,10 @@
 # '#' character and everything after it is treated as comments. Extra spaces
 # and tabs are ignored. If you want to use either of these explicitly, put the
 # value inside quotes, eg.: key = "# char and trailing whitespace  "
+
+# Most (but not all) settings can be overridden by different protocols and/or
+# source/destination IPs by placing the settings inside sections, for example:
+# protocol imap { }, local 127.0.0.1 { }, remote 10.0.0.0/8 { }
 
 # Default values are shown for each setting, it's not required to uncomment
 # those. These are exceptions to this though: No sections (e.g. namespace {})
@@ -20,11 +24,13 @@
 
 # Enable installed protocols
 #!include_try /usr/share/dovecot/protocols.d/*.protocol
+# Protocols we want to be serving.
+#protocols = imap pop3 lmtp
 <% if @protocols -%>
 protocols = <%= @protocols %>
 <% end -%>
 
-# A comma separated list of IPs or hosts where to listen in for connections.
+# A comma separated list of IPs or hosts where to listen in for connections. 
 # "*" listens in all IPv4 interfaces, "::" listens in all IPv6 interfaces.
 # If you want to specify non-default ports or anything more complex,
 # edit conf.d/master.conf.
@@ -35,6 +41,12 @@ listen = <%= @listen %>
 
 # Base directory where to store runtime data.
 #base_dir = /var/run/dovecot/
+
+# Name of this instance. In multi-instance setup doveadm and other commands
+# can use -i <instance_name> to select which instance is used (an alternative
+# to -c <config_path>). The instance name is also added to Dovecot processes
+# in ps output.
+#instance_name = dovecot
 
 # Greeting message for clients.
 #login_greeting = Dovecot ready.

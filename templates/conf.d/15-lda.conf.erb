@@ -44,9 +44,9 @@ submission_host = <%= @submission_host %>
 
 # Delimiter character between local-part and detail in email address.
 #recipient_delimiter = +
-<% if @recipient_delimiter %>
+<% if @recipient_delimiter -%>
 recipient_delimiter = <%= @recipient_delimiter %>
-<% end %>
+<% end -%>
 
 # Header where the original recipient address (SMTP's RCPT TO: address) is taken
 # from if not available elsewhere. With dovecot-lda -a parameter overrides this. 

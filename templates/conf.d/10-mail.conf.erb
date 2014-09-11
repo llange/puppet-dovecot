@@ -115,13 +115,13 @@ namespace inbox {
 # can override these by returning uid or gid fields. You can use either numbers
 # or names. <doc/wiki/UserIds.txt>
 #mail_uid =
-<% if @auth_listener_userdb_user %>
-mail_uid = <%= @auth_listener_userdb_user %>
-<% end %>
 #mail_gid =
-<% if @auth_listener_userdb_group %>
+<% if @auth_listener_userdb_user -%>
+mail_uid = <%= @auth_listener_userdb_user %>
+<% end -%>
+<% if @auth_listener_userdb_group -%>
 mail_gid = <%= @auth_listener_userdb_group %>
-<% end %>
+<% end -%>
 
 # Group to enable temporarily for privileged operations. Currently this is
 # used only with INBOX when either its initial creation or dotlocking fails.
@@ -201,13 +201,13 @@ mail_nfs_index = yes
 # Note that denying root logins is hardcoded to dovecot binary and can't
 # be done even if first_valid_uid is set to 0.
 #first_valid_uid = 500
-<%- if @first_valid_uid %>
+#last_valid_uid = 0
+<%- if @first_valid_uid -%>
 first_valid_uid = <%= @first_valid_uid %>
 <% end -%>
-#last_valid_uid = 0
-<%- if @last_valid_uid %>
+<%- if @last_valid_uid -%>
 last_valid_uid = <%= @last_valid_uid %>
-<% end %>
+<% end -%>
 
 # Valid GID range for users, defaults to non-root/wheel. Users having
 # non-valid GID as primary group ID aren't allowed to log in. If user
@@ -247,9 +247,9 @@ last_valid_uid = <%= @last_valid_uid %>
 # Space separated list of plugins to load for all services. Plugins specific to
 # IMAP, LDA, etc. are added to this list in their own .conf files.
 #mail_plugins = 
-<% if @mail_plugins or @with_quota %>
+<% if @mail_plugins or @with_quota -%>
 mail_plugins = <%= @mail_plugins %><% if @with_quota -%>quota<% end -%>
-<% end %>
+<% end -%>
 
 ##
 ## Mailbox handling optimizations
@@ -258,9 +258,9 @@ mail_plugins = <%= @mail_plugins %><% if @with_quota -%>quota<% end -%>
 # Mailbox list indexes can be used to optimize IMAP STATUS commands. They are
 # also required for IMAP NOTIFY extension to be enabled.
 #mailbox_list_index = no
-<% if @mailbox_list_index %>
+<% if @mailbox_list_index -%>
 mailbox_list_index = <%= @mailbox_list_index %>
-<% end %>
+<% end -%>
 
 # The minimum number of mails in a mailbox before updates are done to cache
 # file. This allows optimizing Dovecot's behavior to do less disk writes at

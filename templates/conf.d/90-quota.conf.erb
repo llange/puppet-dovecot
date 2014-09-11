@@ -81,19 +81,18 @@ plugin {
 
 plugin {
   #quota = dirsize:User quota
-  <% if @with_quota %>
-  quota = maildir:User quota
-  <% else %>
   #quota = maildir:User quota
-  <% end %>
+  <%- if @with_quota -%>
+  quota = maildir:User quota
+  <%- end -%>
   #quota = dict:User quota::proxy::quota
   #quota = fs:User quota
-  <% if @quota_message %>
+  <%- if @quota_message -%>
   quota_exceeded_message = <%= @quota_message %>
-  <% end %>
+  <%- end -%>
 }
 
-<% if @quota_warning %>
+<%- if @quota_warning -%>
 plugin {
   quota_warning = storage=95%% quota-warning 95 %u
   quota_warning2 = storage=80%% quota-warning 80 %u
@@ -111,7 +110,7 @@ service quota-warning {
 plugin {
   quota = maildir:User quota
 }
-<% end %>
+<%- end -%>
 # Multiple quota roots are also possible, for example this gives each user
 # their own 100MB quota and one shared 1GB quota within the domain:
 plugin {
