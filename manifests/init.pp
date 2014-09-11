@@ -145,7 +145,8 @@ class dovecot (
   $ldap_pass_filter             = undef,
   $ldap_iterate_attrs           = undef,
   $ldap_iterate_filter          = undef,
-  $manage_service              = true,
+  $with_quota                   = undef,
+  $manage_service               = true,
 ) {
   case $::operatingsystem {
     'RedHat', 'CentOS': {
@@ -285,7 +286,7 @@ class dovecot (
       content => template('dovecot/conf.d/auth-ldap.conf.ext.erb');
   }
 
-  if $with_quota == "yes" {
+  if $with_quota == 'yes' {
     file { '/usr/local/bin/quota-warning.sh':
       content => template('dovecot/quota-warning.sh.erb'),
       mode    => '0555',
