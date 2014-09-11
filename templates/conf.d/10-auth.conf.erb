@@ -44,7 +44,7 @@ auth_cache_negative_ttl = <%= @auth_cache_negative_ttl %>
 
 # Default realm/domain to use if none was specified. This is used for both
 # SASL realms and appending @domain to username in plaintext logins.
-#auth_default_realm =
+#auth_default_realm = 
 
 # List of allowed characters in username. If the user-given username contains
 # a character not listed in here, the login automatically fails. This is just
@@ -75,6 +75,7 @@ auth_username_format = <%= @auth_username_format %>
 # support for it), you can specify the separator character here. The format
 # is then <username><separator><master username>. UW-IMAP uses "*" as the
 # separator, so that could be a good choice.
+#auth_master_user_separator =
 auth_master_user_separator = <%= @auth_master_separator %>
 
 # Username to use for users logging in with ANONYMOUS SASL mechanism
@@ -108,9 +109,9 @@ auth_master_user_separator = <%= @auth_master_separator %>
 # Require a valid SSL client certificate or the authentication fails.
 #auth_ssl_require_client_cert = no
 
-# Take the username from client's SSL certificate, using
+# Take the username from client's SSL certificate, using 
 # X509_NAME_get_text_by_NID() which returns the subject's DN's
-# CommonName.
+# CommonName. 
 #auth_ssl_username_from_cert = no
 
 # Space separated list of wanted authentication mechanisms:

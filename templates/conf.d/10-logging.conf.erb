@@ -12,9 +12,9 @@ log_path = <%= @log_path %>
 <% end -%>
 
 # Log file to use for informational messages. Defaults to log_path.
-#info_log_path =
+#info_log_path = 
 # Log file to use for debug messages. Defaults to info_log_path.
-#debug_log_path =
+#debug_log_path = 
 
 # Syslog facility to use if you're logging to syslog. Usually if you don't
 # want to use "mail", you'll use local0..local7. Also other standard
@@ -77,6 +77,7 @@ plugin {
 <% if @log_timestamp -%>
 log_timestamp = <%= @log_timestamp %>
 <% end -%>
+
 # Space-separated list of elements we want to log. The elements which have
 # a non-empty variable value are joined together to form a comma-separated
 # string.
@@ -85,7 +86,7 @@ log_timestamp = <%= @log_timestamp %>
 # Login log format. %s contains login_log_format_elements string, %$ contains
 # the data we want to log.
 #login_log_format = %$: %s
-
+ 
 # Log prefix for mail processes. See doc/wiki/Variables.txt for list of
 # possible variables you can use.
 #mail_log_prefix = "%s(%u): "

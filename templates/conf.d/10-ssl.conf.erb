@@ -8,7 +8,9 @@
 #verbose_ssl = yes
 
 # SSL/TLS support: yes, no, required. <doc/wiki/SSL.txt>
-#ssl = yes
+# disable plain pop3 and imap, allowed are only pop3+TLS, pop3s, imap+TLS and imaps
+# plain imap and pop3 are still allowed for local connections
+#ssl = required
 <% if @ssl -%>
 ssl = yes
 <% else -%>
@@ -32,7 +34,7 @@ ssl_key = <<%= @ssl_key %>
 
 # PEM encoded trusted certificate authority. Set this only if you intend to use
 # ssl_verify_client_cert=yes. The file should contain the CA certificate(s)
-# followed by the matching CRL(s). (e.g. ssl_ca = </etc/ssl/certs/ca.pem)
+# followed by the matching CRL(s). (e.g. ssl_ca = </etc/pki/dovecot/certs/ca.pem)
 #ssl_ca = 
 
 # Require that CRL check succeeds for client certificates.
@@ -40,7 +42,7 @@ ssl_key = <<%= @ssl_key %>
 
 # Directory and/or file for trusted SSL CA certificates. These are used only
 # when Dovecot needs to act as an SSL client (e.g. imapc backend). The
-# directory is usually /etc/ssl/certs in Debian-based systems and the file is
+# directory is usually /etc/pki/dovecot/certs in Debian-based systems and the file is
 # /etc/pki/tls/cert.pem in RedHat-based systems.
 #ssl_client_ca_dir =
 #ssl_client_ca_file =
@@ -53,6 +55,9 @@ ssl_key = <<%= @ssl_key %>
 # x500UniqueIdentifier are the usual choices. You'll also need to set
 # auth_ssl_username_from_cert=yes.
 #ssl_cert_username_field = commonName
+
+# DH parameters length to use.
+#ssl_dh_parameters_length = 1024
 
 # How often to regenerate the SSL parameters file. Generation is quite CPU
 # intensive operation. The value is in hours, 0 disables regeneration

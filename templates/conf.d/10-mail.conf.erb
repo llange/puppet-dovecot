@@ -29,7 +29,7 @@
 #
 # <doc/wiki/MailLocation.txt>
 #
-#mail_location = mbox:~/mail:INBOX=/var/mail/%u
+#mail_location = 
 <% if @mail_location -%>
 mail_location = <%= @mail_location %>
 <% end -%>
@@ -51,14 +51,14 @@ namespace inbox {
   # Hierarchy separator to use. You should use the same separator for all
   # namespaces or some clients get confused. '/' is usually a good one.
   # The default however depends on the underlying mail storage format.
-  #separator =
+  #separator = 
 <% if @inbox_separator -%>
   separator = <%= @inbox_separator %>
 <% end -%>
 
   # Prefix required to access this namespace. This needs to be different for
   # all namespaces. For example "Public/".
-  #prefix =
+  #prefix = 
 <% if @inbox_prefix -%>
   prefix = <%= @inbox_prefix %>
 <% end -%>
@@ -114,15 +114,13 @@ namespace inbox {
 # System user and group used to access mails. If you use multiple, userdb
 # can override these by returning uid or gid fields. You can use either numbers
 # or names. <doc/wiki/UserIds.txt>
+#mail_uid =
 <% if @auth_listener_userdb_user %>
 mail_uid = <%= @auth_listener_userdb_user %>
-<% else %>
-#mail_uid =
 <% end %>
+#mail_gid =
 <% if @auth_listener_userdb_group %>
 mail_gid = <%= @auth_listener_userdb_group %>
-<% else %>
-#mail_gid =
 <% end %>
 
 # Group to enable temporarily for privileged operations. Currently this is
@@ -202,15 +200,13 @@ mail_nfs_index = yes
 # to make sure that users can't log in as daemons or other system users.
 # Note that denying root logins is hardcoded to dovecot binary and can't
 # be done even if first_valid_uid is set to 0.
+#first_valid_uid = 500
 <%- if @first_valid_uid %>
 first_valid_uid = <%= @first_valid_uid %>
-<% else %>
-#first_valid_uid = 500
 <% end -%>
+#last_valid_uid = 0
 <%- if @last_valid_uid %>
 last_valid_uid = <%= @last_valid_uid %>
-<% else %>
-#last_valid_uid = 0
 <% end %>
 
 # Valid GID range for users, defaults to non-root/wheel. Users having
@@ -231,7 +227,7 @@ last_valid_uid = <%= @last_valid_uid %>
 # WARNING: Never add directories here which local users can modify, that
 # may lead to root exploit. Usually this should be done only if you don't
 # allow shell access for users. <doc/wiki/Chrooting.txt>
-#valid_chroot_dirs =
+#valid_chroot_dirs = 
 
 # Default chroot directory for mail processes. This can be overridden for
 # specific users in user database by giving /./ in user's home directory
@@ -239,22 +235,20 @@ last_valid_uid = <%= @last_valid_uid %>
 # need to do chrooting, Dovecot doesn't allow users to access files outside
 # their mail directory anyway. If your home directories are prefixed with
 # the chroot directory, append "/." to mail_chroot. <doc/wiki/Chrooting.txt>
-#mail_chroot =
+#mail_chroot = 
 
 # UNIX socket path to master authentication server to find users.
 # This is used by imap (for shared users) and lda.
 #auth_socket_path = /var/run/dovecot/auth-userdb
 
 # Directory where to look up mail plugins.
-#mail_plugin_dir = /usr/lib/dovecot/modules
+#mail_plugin_dir = /usr/lib/dovecot
 
 # Space separated list of plugins to load for all services. Plugins specific to
 # IMAP, LDA, etc. are added to this list in their own .conf files.
-#mail_plugins =
+#mail_plugins = 
 <% if @mail_plugins or @with_quota %>
 mail_plugins = <%= @mail_plugins %><% if @with_quota -%>quota<% end -%>
-<% else %>
-#mail_plugins = 
 <% end %>
 
 ##
@@ -263,10 +257,9 @@ mail_plugins = <%= @mail_plugins %><% if @with_quota -%>quota<% end -%>
 
 # Mailbox list indexes can be used to optimize IMAP STATUS commands. They are
 # also required for IMAP NOTIFY extension to be enabled.
+#mailbox_list_index = no
 <% if @mailbox_list_index %>
 mailbox_list_index = <%= @mailbox_list_index %>
-<% else %>
-#mailbox_list_index = no
 <% end %>
 
 # The minimum number of mails in a mailbox before updates are done to cache
@@ -320,6 +313,10 @@ mailbox_list_index = <%= @mailbox_list_index %>
 # broken size. The performance hit for enabling this is very small.
 #maildir_broken_filename_sizes = no
 
+# Always move mails from new/ directory to cur/, even when the \Recent flags
+# aren't being reset.
+#maildir_empty_new = no
+
 ##
 ## mbox-specific settings
 ##
@@ -361,7 +358,7 @@ mailbox_list_index = <%= @mailbox_list_index %>
 # fallbacks to re-reading the whole mbox file whenever something in mbox isn't
 # how it's expected to be. The only real downside to this setting is that if
 # some other MUA changes message flags, Dovecot doesn't notice it immediately.
-# Note that a full sync is done with SELECT, EXAMINE, EXPUNGE and CHECK
+# Note that a full sync is done with SELECT, EXAMINE, EXPUNGE and CHECK 
 # commands.
 #mbox_dirty_syncs = yes
 

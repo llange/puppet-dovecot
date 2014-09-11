@@ -1,6 +1,8 @@
 # Managed by puppet.
 
 ##
+## Mailbox definitions
+##
 
 # NOTE: Assumes "namespace inbox" has been defined in 10-mail.conf.
 namespace inbox {
@@ -21,16 +23,16 @@ namespace inbox {
     driver = 
     special_use = \Trash
   }
-  mailbox Trash {
-    special_use = \Trash
-    auto = subscribe
-  }
   mailbox Drafts {
     special_use = \Drafts
     auto = subscribe
   }
   mailbox Junk {
     special_use = \Junk
+    auto = subscribe
+  }
+  mailbox Trash {
+    special_use = \Trash
     auto = subscribe
   }
 
@@ -43,6 +45,17 @@ namespace inbox {
   mailbox "Sent Messages" {
     special_use = \Sent
   }
+
+  # If you have a virtual "All messages" mailbox:
+  #mailbox virtual/All {
+  #  special_use = \All
+  #}
+
+  # If you have a virtual "Flagged" mailbox:
+  #mailbox virtual/Flagged {
+  #  special_use = \Flagged
+  #}
+
   #mailbox_alias_old = Sent
   #mailbox_alias_new = Sent Messages
   #mailbox_alias_old2 = Sent
