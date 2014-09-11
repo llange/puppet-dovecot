@@ -149,7 +149,7 @@ class dovecot (
   $manage_service               = true,
 ) {
   case $::operatingsystem {
-    'RedHat', 'CentOS': {
+    'RedHat', 'CentOS', 'Fedora': {
       $directory = '/etc/dovecot'
       $packages  = 'dovecot'
       $prefix    = 'dovecot'
