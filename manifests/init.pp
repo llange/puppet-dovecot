@@ -144,6 +144,7 @@ class dovecot (
   # auth-master.conf.ext / master-users
   $auth_master_pass             = false,
   $master_users                 = '',
+  $users                        = '',
   # auth-ldap.conf.ext
   $ldap_prefetch                = undef,
   # dovecot-ldap.conf.ext
@@ -329,6 +330,14 @@ class dovecot (
     group   => dovecot,
     mode    => '0640',
     content => $master_users,
+  }
+
+  # file with users
+  dovecot::file {'users':
+    user   => dovecot,
+    group   => root,
+    mode    => '0400',
+    content => $users,
   }
 }
 
