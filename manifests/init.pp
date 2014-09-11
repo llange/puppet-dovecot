@@ -30,9 +30,9 @@ class dovecot (
   # 10-logging.conf
   $auth_debug                   = undef,
   $auth_verbose                 = undef,
-  $auth_verbose_passwords		= undef,
-  $auth_debug_passwords			= undef,
-  $verbose_ssl					= undef,
+  $auth_verbose_passwords       = undef,
+  $auth_debug_passwords         = undef,
+  $verbose_ssl                  = undef,
   $log_path                     = undef,
   $log_timestamp                = undef,
   $mail_debug                   = undef,
@@ -50,8 +50,8 @@ class dovecot (
   $first_valid_uid              = false,
   $last_valid_uid               = false,
   $mailbox_list_index           = undef,
-  $mbox_read_locks				= undef,
-  $mbox_write_locks				= undef,
+  $mbox_read_locks              = undef,
+  $mbox_write_locks             = undef,
   # 10-master.conf
   $auth_listener_default_user   = undef,
   $auth_listener_postfix        = false,
