@@ -10,4 +10,10 @@
 
 plugin {
   #setting_name = value
+  antispam_backend = dspam
+  antispam_signature = X-DSPAM-Signature
+  antispam_spam = \Junk
+  antispam_trash = \Trash
+  antispam_unsure = \Trash
+  quota = dict:User quota::proxy::quota
 }

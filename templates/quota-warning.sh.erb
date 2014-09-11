@@ -1,0 +1,17 @@
+#! /bin/bash
+PERCENT=$1
+USER=$2
+
+cat << EOF | /usr/local/libexec/dovecot/dovecot-lda -d $USER -o "plugin/quota=maildir:User quota:noenforcing"
+From: postmaster@<%= @domain %>
+Subject: Mail service quota warning
+
+Votre boite aux lettres est pleine à $PERCENT%.
+
+Voius devriez effacer quelques messages ou vider la corbeille.
+
+ATTENTION: n'ignorez pas ce message, si votre boite aux lettres devient pleine à 100%
+les messagees seront refusés.
+
+Votre administrateur de messagerie.
+EOF

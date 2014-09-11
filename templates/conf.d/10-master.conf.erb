@@ -139,6 +139,9 @@ service auth {
   # something else than 0666 and Dovecot lets the kernel enforce the
   # permissions (e.g. 0777 allows everyone full permissions).
   unix_listener auth-userdb {
+<% if @auth_listener_userdb_mode -%>
+    mode = <%= @auth_listener_userdb_mode %>
+<% end -%>
     #mode = 0666
     #user = 
 <% if @auth_listener_userdb_user -%>
