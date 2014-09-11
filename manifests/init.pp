@@ -26,6 +26,7 @@ class dovecot (
   $auth_cache_size              = undef,
   $auth_cache_ttl               = undef,
   $auth_cache_negative_ttl      = undef,
+  $auth_password_scheme         = undef,
   # 10-logging.conf
   $auth_debug                   = undef,
   $auth_verbose                 = undef,
