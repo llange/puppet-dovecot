@@ -73,11 +73,13 @@ connect = "host=<%= @db_host %> dbname=<%= @db_name %> user=<%= @db_user %> pass
 # List of supported schemes is in
 # http://wiki2.dovecot.org/Authentication/PasswordSchemes
 #
+
 <% if @auth_password_scheme %>
 default_pass_scheme = <%= @auth_password_scheme %>
 <% else %>
 default_pass_scheme = CRAM-MD5
 <% end %>
+
 
 # passdb query to retrieve the password. It can return fields:
 #   password - The user's password. This field must be returned.
