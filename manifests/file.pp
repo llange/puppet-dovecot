@@ -18,7 +18,7 @@ define dovecot::file (
     fail('You must include the dovecot base class before using any dovecot defined resources')
   }
 
-  file { "${directory}/${title}":
+  file { "${::dovecot::directory}/${title}":
     ensure  => file,
     content => $content,
     group   => $group,
