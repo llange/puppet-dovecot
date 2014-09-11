@@ -344,10 +344,10 @@ mailbox_list_index = <%= @mailbox_list_index %>
 #mbox_read_locks = fcntl
 #mbox_write_locks = fcntl dotlock
 <% if @mbox_read_locks -%>
-mbox_read_locks = <% @mbox_read_locks.join(' ') %>
+mbox_read_locks = <%= @mbox_read_locks.join(' ') %>
 <% end -%>
 <% if @mbox_write_locks -%>
-mbox_write_locks = <% @mbox_write_locks.join(' ') %>
+mbox_write_locks = <%= @mbox_write_locks.join(' ') %>
 <% end -%>
 
 # Maximum time to wait for lock (all of them) before aborting.
