@@ -16,7 +16,7 @@ class dovecot (
   $verbose_proctitle            = undef,
   $recipient_delimiter          = undef,
   $quota_full_tempfail          = undef,
-  $mail_home                    = '/var/vmail/%d/%n/',
+  $mail_home                    = undef,
   # 10-auth.conf
   $auth_include                 = [ 'system' ],
   $auth_mechanisms              = [ 'login', 'plain' ],
