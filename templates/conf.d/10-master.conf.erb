@@ -91,6 +91,11 @@ service lmtp {
   }
 
   # Create inet listener only if you can't use the above UNIX socket
+  #inet_listener lmtp {
+    # Avoid making LMTP visible for the entire internet
+    #address =
+    #port =
+  #}
 <% if @lmtp_inet_listener -%>
   inet_listener lmtp {
     # Avoid making LMTP visible for the entire internet
@@ -157,6 +162,9 @@ service auth {
   }
 
   # Postfix smtp-auth
+  #unix_listener /var/spool/postfix/private/auth {
+  #  mode = 0666
+  #}
 <% if @auth_listener_postfix -%>
   unix_listener /var/spool/postfix/private/auth {
     mode = <%= @auth_listener_postfix_mode %>
