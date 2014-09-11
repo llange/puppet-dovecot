@@ -76,6 +76,7 @@ class dovecot (
   $pop3_login_process_min_avail = undef,
   $pop3_login_service_count     = undef,
   $pop3s_listen_port            = '995',
+  $default_vsz_limit            = undef,
   # 10-ssl.conf
   $ssl                          = undef,
   $ssl_cert                     = '/etc/pki/dovecot/certs/dovecot.pem',
@@ -144,6 +145,7 @@ class dovecot (
   $ldap_pass_filter             = undef,
   $ldap_iterate_attrs           = undef,
   $ldap_iterate_filter          = undef,
+  $manage_service              = true,
 ) {
   case $::operatingsystem {
     'RedHat', 'CentOS': {
@@ -176,9 +178,16 @@ class dovecot (
   }
 
   # All files in this scope are dovecot configuration files
-  File {
-    notify  => Service['dovecot'],
-    require => Package[$packages],
+  if $manage_service {
+    File {
+      notify  => Service['dovecot'],
+      require => Package[$packages],
+    }
+  }
+  else {
+    File {
+      require => Package[$packages],
+    }
   }
 
   # Install plugins (sub-packages)
@@ -189,11 +198,13 @@ class dovecot (
 
   # Main package and service it provides
   package { $packages: ensure => installed }
-  service { 'dovecot':
-    ensure    => running,
-    enable    => true,
-    hasstatus => true,
-    require   => File["${directory}/dovecot.conf"],
+  if $manage_service {
+    service { 'dovecot':
+      ensure    => running,
+      enable    => true,
+      hasstatus => true,
+      require   => File["${directory}/dovecot.conf"],
+    }
   }
 
   # Main configuration
@@ -221,6 +232,9 @@ class dovecot (
 
     "${directory}/conf.d/10-master.conf":
       content => template('dovecot/conf.d/10-master.conf.erb');
+
+    "${directory}/conf.d/10-director.conf":
+      content => template('dovecot/conf.d/10-director.conf.erb');
 
     "${directory}/conf.d/10-ssl.conf":
       content => template('dovecot/conf.d/10-ssl.conf.erb');

@@ -24,11 +24,13 @@ define dovecot::file (
     content => $content,
     group   => $group,
     mode    => $mode,
-    notify  => Service['dovecot'],
     owner   => $owner,
     replace => true,
     require => Package[$dovecot::packages],
     source  => $source,
+  }
+  if $dovecot::manage_service {
+    File["${directory}/${title}"] ~> Service['dovecot']
   }
 }
 
