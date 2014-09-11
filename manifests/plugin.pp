@@ -7,6 +7,10 @@
 #     class { 'dovecot': plugins => [ 'mysql', 'pigeonhole' ] }
 #
 define dovecot::plugin( $prefix = 'dovecot' ) {
+  if ! defined(Class['dovecot']) {
+    fail('You must include the dovecot base class before using any dovecot defined resources')
+  }
+
   package { "${prefix}-${title}":
     ensure => installed,
   }
