@@ -50,6 +50,8 @@ class dovecot (
   $first_valid_uid              = false,
   $last_valid_uid               = false,
   $mailbox_list_index           = undef,
+  $mbox_read_locks				= undef,
+  $mbox_write_locks				= undef,
   # 10-master.conf
   $auth_listener_default_user   = undef,
   $auth_listener_postfix        = false,
