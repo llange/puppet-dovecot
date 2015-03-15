@@ -12,7 +12,11 @@
 # plain imap and pop3 are still allowed for local connections
 #ssl = required
 <% if @ssl -%>
+<% if @ssl =~ /required/ -%>
+ssl = required
+<% else -%>
 ssl = yes
+<% end -%>
 <% else -%>
 ssl = no
 <% end -%>
