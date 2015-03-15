@@ -25,6 +25,15 @@ plugin {
    # command line argument to specify that mail should be reclassified
    # as not SPAM. Optional, default = "--class=innocent".
   antispam_dspam_notspam = --class=innocent
+<% if @fts -%>
+  fts = <%= @fts.join(' ') %>
+<% if @fts.include? 'squat' -%>
+  fts_squat = partial=4 full=10
+<% end -%>
+<% if @fts.include? 'lucene' -%>
+  fts_lucene = whitespace_chars=@.
+<% end -%>
+<% end -%>
 }
 
 #plugin {

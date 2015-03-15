@@ -130,6 +130,8 @@ class dovecot (
   $sieve_max_script_size        = undef,
   $sieve_quota_max_scripts      = undef,
   $sieve_quota_max_storage      = undef,
+  # 90-plugin.conf
+  $fts                          = undef,
   # 90-quota.conf
   $quota                        = undef,
   $quota_warnings               = [],
